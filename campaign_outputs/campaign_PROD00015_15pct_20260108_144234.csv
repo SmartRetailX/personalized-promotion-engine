@@ -1,0 +1,31 @@
+CustomerID,Name,Age,Gender,Location,CustomerSegment,purchase_probability,ProductID,ProductName,OriginalPrice,Discount%,DiscountedPrice
+CUST00195,Nathaniel Douglas,70,Female,Kilinochchi,frequent_shoppers,0.8147362624136023,PROD00015,MD Milk,470,15,399.5
+CUST00177,Michael Watkins,39,Female,Negombo,frequent_shoppers,0.8055741026414382,PROD00015,MD Milk,470,15,399.5
+CUST00155,Gavin Zhang,48,Female,Ratnapura,frequent_shoppers,0.8006704611366986,PROD00015,MD Milk,470,15,399.5
+CUST00385,Karen Perez,71,Male,Galle,regular_shoppers,0.7988262254637619,PROD00015,MD Milk,470,15,399.5
+CUST00069,Paul Larsen,59,Male,Kilinochchi,frequent_shoppers,0.7975661018272678,PROD00015,MD Milk,470,15,399.5
+CUST00194,Rachel Holland,68,Male,Anuradhapura,frequent_shoppers,0.7965845436980183,PROD00015,MD Milk,470,15,399.5
+CUST00036,Kim Brown,51,Female,Ratnapura,frequent_shoppers,0.7956594122180718,PROD00015,MD Milk,470,15,399.5
+CUST00620,Harry Nichols,40,Female,Trincomalee,regular_shoppers,0.7947185186101465,PROD00015,MD Milk,470,15,399.5
+CUST00241,Travis Stone,70,Female,Moratuwa,regular_shoppers,0.7945374080581559,PROD00015,MD Milk,470,15,399.5
+CUST00342,Ernest Oconnell,72,Male,Colombo,regular_shoppers,0.7938237705975091,PROD00015,MD Milk,470,15,399.5
+CUST00079,Trevor Fisher,69,Male,Colombo,frequent_shoppers,0.7934790575949405,PROD00015,MD Milk,470,15,399.5
+CUST00058,Lisa Alvarado,41,Male,Gampaha,frequent_shoppers,0.7934209136203164,PROD00015,MD Milk,470,15,399.5
+CUST00301,Victoria Boyd,55,Male,Nuwara Eliya,regular_shoppers,0.7933786172490492,PROD00015,MD Milk,470,15,399.5
+CUST00139,Melissa Garner,59,Male,Kurunegala,frequent_shoppers,0.7933733045451796,PROD00015,MD Milk,470,15,399.5
+CUST00172,Christopher Park,50,Male,Colombo,frequent_shoppers,0.7927287934929488,PROD00015,MD Milk,470,15,399.5
+CUST00084,Michael Burton,67,Female,Kilinochchi,frequent_shoppers,0.7925399314847419,PROD00015,MD Milk,470,15,399.5
+CUST00438,Carlos Love,30,Female,Moratuwa,regular_shoppers,0.7923349939393485,PROD00015,MD Milk,470,15,399.5
+CUST00120,Dr. Jordan Hill PhD,52,Male,Moratuwa,frequent_shoppers,0.7915815699425026,PROD00015,MD Milk,470,15,399.5
+CUST00649,Gregory Fernandez,40,Female,Trincomalee,regular_shoppers,0.7914104936448579,PROD00015,MD Milk,470,15,399.5
+CUST00277,Tanya Rogers,53,Female,Nuwara Eliya,regular_shoppers,0.7912183151051064,PROD00015,MD Milk,470,15,399.5
+CUST00659,Amanda Miller,44,Female,Kalutara,occasional_shoppers,0.7904780419512274,PROD00015,MD Milk,470,15,399.5
+CUST00350,Brett Walker,70,Female,Batticaloa,regular_shoppers,0.7897288486374042,PROD00015,MD Milk,470,15,399.5
+CUST00310,Jennifer Allen,49,Male,Badulla,regular_shoppers,0.7892514213778382,PROD00015,MD Milk,470,15,399.5
+CUST00868,Dwayne Bruce,69,Female,Jaffna,occasional_shoppers,0.7892168743682325,PROD00015,MD Milk,470,15,399.5
+CUST00644,Shawn Kelley,29,Male,Matara,regular_shoppers,0.7883423763442278,PROD00015,MD Milk,470,15,399.5
+CUST00023,Lisa Brandt,31,Female,Batticaloa,frequent_shoppers,0.788212925619779,PROD00015,MD Milk,470,15,399.5
+CUST00144,Terry Coffey,41,Female,Kalutara,frequent_shoppers,0.7879456601876744,PROD00015,MD Milk,470,15,399.5
+CUST00197,James Conner,34,Other,Kilinochchi,frequent_shoppers,0.7875125288995956,PROD00015,MD Milk,470,15,399.5
+CUST00430,Rachael Howard DDS,57,Male,Kalutara,regular_shoppers,0.787509012932357,PROD00015,MD Milk,470,15,399.5
+CUST00840,Tammy Thompson,74,Male,Kalutara,occasional_shoppers,0.7872352080847638,PROD00015,MD Milk,470,15,399.5

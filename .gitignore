@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+node_modules/
+node_modules
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Data files (large CSVs)
+data/raw/*.csv
+data/processed/*.csv
+
+# Trained models (large files)
+models/*.pkl
+models/*.h5
+models/*.joblib
+
+# Evaluation outputs
+evaluation/results/*.png
+evaluation/results/*.jpg
+evaluation/results/*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+
+# Keep folder structure but ignore contents
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!models/.gitkeep
+!evaluation/results/.gitkeep
