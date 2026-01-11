@@ -1,0 +1,31 @@
+CustomerID,Name,Age,Gender,Location,CustomerSegment,purchase_probability,ProductID,ProductName,OriginalPrice,Discount%,DiscountedPrice
+CUST00195,Nathaniel Douglas,70,Female,Kilinochchi,frequent_shoppers,0.8082526502020164,PROD00016,Kotmale Milk,350,15,297.5
+CUST00177,Michael Watkins,39,Female,Negombo,frequent_shoppers,0.8010840723145384,PROD00016,Kotmale Milk,350,15,297.5
+CUST00155,Gavin Zhang,48,Female,Ratnapura,frequent_shoppers,0.7961804308097985,PROD00016,Kotmale Milk,350,15,297.5
+CUST00385,Karen Perez,71,Male,Galle,regular_shoppers,0.7946520290231576,PROD00016,Kotmale Milk,350,15,297.5
+CUST00069,Paul Larsen,59,Male,Kilinochchi,frequent_shoppers,0.794168172100004,PROD00016,Kotmale Milk,350,15,297.5
+CUST00241,Travis Stone,70,Female,Moratuwa,regular_shoppers,0.7914247900577478,PROD00016,Kotmale Milk,350,15,297.5
+CUST00342,Ernest Oconnell,72,Male,Colombo,regular_shoppers,0.7907111525971008,PROD00016,Kotmale Milk,350,15,297.5
+CUST00172,Christopher Park,50,Male,Colombo,frequent_shoppers,0.7905918024226231,PROD00016,Kotmale Milk,350,15,297.5
+CUST00036,Kim Brown,51,Female,Ratnapura,frequent_shoppers,0.7901015368843151,PROD00016,Kotmale Milk,350,15,297.5
+CUST00079,Trevor Fisher,69,Male,Colombo,frequent_shoppers,0.7900811278676766,PROD00016,Kotmale Milk,350,15,297.5
+CUST00139,Melissa Garner,59,Male,Kurunegala,frequent_shoppers,0.7896325910834686,PROD00016,Kotmale Milk,350,15,297.5
+CUST00058,Lisa Alvarado,41,Male,Gampaha,frequent_shoppers,0.7883015438965382,PROD00016,Kotmale Milk,350,15,297.5
+CUST00301,Victoria Boyd,55,Male,Nuwara Eliya,regular_shoppers,0.7882736612995308,PROD00016,Kotmale Milk,350,15,297.5
+CUST00649,Gregory Fernandez,40,Female,Trincomalee,regular_shoppers,0.7879739337580279,PROD00016,Kotmale Milk,350,15,297.5
+CUST00438,Carlos Love,30,Female,Moratuwa,regular_shoppers,0.7874614373168383,PROD00016,Kotmale Milk,350,15,297.5
+CUST00277,Tanya Rogers,53,Female,Nuwara Eliya,regular_shoppers,0.7860989453813281,PROD00016,Kotmale Milk,350,15,297.5
+CUST00120,Dr. Jordan Hill PhD,52,Male,Moratuwa,frequent_shoppers,0.7850979577309167,PROD00016,Kotmale Milk,350,15,297.5
+CUST00150,David Medina,59,Male,Kurunegala,frequent_shoppers,0.7845627375446544,PROD00016,Kotmale Milk,350,15,297.5
+CUST00023,Lisa Brandt,31,Female,Batticaloa,frequent_shoppers,0.7841915570565066,PROD00016,Kotmale Milk,350,15,297.5
+CUST00310,Jennifer Allen,49,Male,Badulla,regular_shoppers,0.7841464654283198,PROD00016,Kotmale Milk,350,15,297.5
+CUST00430,Rachael Howard DDS,57,Male,Kalutara,regular_shoppers,0.7840724530455269,PROD00016,Kotmale Milk,350,15,297.5
+CUST00646,Mark Anderson,50,Female,Anuradhapura,regular_shoppers,0.7838336143190463,PROD00016,Kotmale Milk,350,15,297.5
+CUST00194,Rachel Holland,68,Male,Anuradhapura,frequent_shoppers,0.7836460350273401,PROD00016,Kotmale Milk,350,15,297.5
+CUST00346,David Moore,66,Male,Trincomalee,regular_shoppers,0.7830375796986752,PROD00016,Kotmale Milk,350,15,297.5
+CUST00450,Kimberly Villanueva,59,Female,Trincomalee,regular_shoppers,0.782748680049176,PROD00016,Kotmale Milk,350,15,297.5
+CUST00171,Renee Bruce,68,Female,Colombo,frequent_shoppers,0.7825098952696321,PROD00016,Kotmale Milk,350,15,297.5
+CUST00350,Brett Walker,70,Female,Batticaloa,regular_shoppers,0.7824355609541542,PROD00016,Kotmale Milk,350,15,297.5
+CUST00620,Harry Nichols,40,Female,Trincomalee,regular_shoppers,0.7823124708323275,PROD00016,Kotmale Milk,350,15,297.5
+CUST00249,Anthony Dougherty,69,Male,Kilinochchi,regular_shoppers,0.7819925346836553,PROD00016,Kotmale Milk,350,15,297.5
+CUST00144,Terry Coffey,41,Female,Kalutara,frequent_shoppers,0.7819491244193195,PROD00016,Kotmale Milk,350,15,297.5
