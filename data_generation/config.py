@@ -182,5 +182,7 @@ PRODUCT_AFFINITIES = {
 }
 
 # Output Paths
-OUTPUT_DIR = 'f:\\.1 Research\\Personalized Promotion Engine\\data\\raw'
-PROCESSED_DIR = 'f:\\.1 Research\\Personalized Promotion Engine\\data\\processed'
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+OUTPUT_DIR = os.path.join(PROJECT_ROOT, 'data', 'raw')
+PROCESSED_DIR = os.path.join(PROJECT_ROOT, 'data', 'processed')

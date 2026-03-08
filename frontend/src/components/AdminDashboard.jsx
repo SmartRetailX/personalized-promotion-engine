@@ -298,11 +298,10 @@ const AdminDashboard = () => {
                 <button
                   type="button"
                   onClick={() => handlePromotionTypeChange("personalized")}
-                  className={`px-4 py-3 rounded-lg border-2 font-medium transition-all flex flex-col items-center gap-2 ${
-                    promotionType === "personalized"
+                  className={`px-4 py-3 rounded-lg border-2 font-medium transition-all flex flex-col items-center gap-2 ${promotionType === "personalized"
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-300 bg-white text-gray-700 hover:border-blue-300"
-                  }`}
+                    }`}
                 >
                   <Users className="w-5 h-5" />
                   <span>Personalized</span>
@@ -310,11 +309,10 @@ const AdminDashboard = () => {
                 <button
                   type="button"
                   onClick={() => handlePromotionTypeChange("bulk")}
-                  className={`px-4 py-3 rounded-lg border-2 font-medium transition-all flex flex-col items-center gap-2 ${
-                    promotionType === "bulk"
+                  className={`px-4 py-3 rounded-lg border-2 font-medium transition-all flex flex-col items-center gap-2 ${promotionType === "bulk"
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-300 bg-white text-gray-700 hover:border-blue-300"
-                  }`}
+                    }`}
                 >
                   <Package className="w-5 h-5" />
                   <span>Bulk</span>
@@ -343,11 +341,10 @@ const AdminDashboard = () => {
             <button
               onClick={handleSendPromotion}
               disabled={!selectedProduct}
-              className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
-                selectedProduct
+              className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${selectedProduct
                   ? "bg-blue-500 hover:bg-blue-600 text-white"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+                }`}
             >
               <Send className="w-5 h-5" />
               Send Promotion
@@ -490,11 +487,10 @@ const AdminDashboard = () => {
                     </td>
                     <td className="px-4 py-4">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          promo.type === "personalized"
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${promo.type === "personalized"
                             ? "bg-purple-100 text-purple-700"
                             : "bg-blue-100 text-blue-700"
-                        }`}
+                          }`}
                       >
                         {promo.type}
                       </span>
@@ -522,9 +518,8 @@ const AdminDashboard = () => {
                             <div
                               className="bg-blue-500 h-2 rounded-full transition-all"
                               style={{
-                                width: `${
-                                  (promo.usedCount / promo.availableCount) * 100
-                                }%`,
+                                width: `${(promo.usedCount / promo.availableCount) * 100
+                                  }%`,
                               }}
                             />
                           </div>

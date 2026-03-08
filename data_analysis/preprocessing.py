@@ -20,7 +20,11 @@ import os
 class DataPreprocessor:
     """Preprocess raw transaction data for ML models"""
     
-    def __init__(self, data_dir='f:\\.1 Research\\Personalized Promotion Engine\\data\\raw'):
+    def __init__(self, data_dir=None):
+        if data_dir is None:
+            # Use dynamic path relative to this file
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            data_dir = os.path.join(os.path.dirname(script_dir), 'data', 'raw')
         self.data_dir = data_dir
         self.customers = None
         self.products = None
@@ -441,8 +445,12 @@ class DataPreprocessor:
         """Legacy method - calls time-aware version"""
         return self.create_time_aware_training_data()
     
-    def save_processed_data(self, output_dir='f:\\.1 Research\\Personalized Promotion Engine\\data\\processed'):
+    def save_processed_data(self, output_dir=None):
         """Save all processed datasets"""
+        if output_dir is None:
+            # Use dynamic path relative to this file
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            output_dir = os.path.join(os.path.dirname(script_dir), 'data', 'processed')
         os.makedirs(output_dir, exist_ok=True)
         
         print("\nSaving processed datasets...")
