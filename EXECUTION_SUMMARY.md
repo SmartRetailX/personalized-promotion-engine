@@ -12,20 +12,21 @@
 
 ### Step 2: Generated Synthetic Data ✅  
 ```powershell
-& .\venv\Scripts\python.exe data_generation\generate_all_datasets.py
+& .\venv\Scripts\python.exe data_generation\generate_db_aligned_dataset.py
 ```
-**Result:** Created 5 CSV files in `data\raw\`:
-- ✅ Customers.csv (1,000 customers)
-- ✅ Products.csv (216 products)
-- ✅ Stores.csv (10 stores)
-- ✅ Promotions.csv (200 promotions)
-- ✅ Transactions.csv (50,000 transactions)
+**Result:** Created DB-aligned CSV files in `data\raw_db\`:
+- ✅ users.csv
+- ✅ categories.csv
+- ✅ products.csv
+- ✅ promotions.csv
+- ✅ orders.csv
+- ✅ transactions.csv
 
 ---
 
 ### Step 3: Processed Features ✅
 ```powershell
-& .\venv\Scripts\python.exe data_analysis\preprocessing.py
+& .\venv\Scripts\python.exe data_analysis\db_preprocessing.py
 ```
 **Result:** Created ML-ready features in `data\processed\`:
 - ✅ customer_features.csv
@@ -37,11 +38,11 @@
 
 ### Step 4: Model Training ⚠️ 
 ```powershell
-& .\venv\Scripts\python.exe models\purchase_prediction.py
+& .\venv\Scripts\python.exe train_db_aligned.py
 ```
-**Status:** Has a bug, but you have pre-trained models from before!
-- ✅ purchase_prediction_model.pkl (exists from previous run)
-- ✅ collaborative_filtering_model.pkl (exists from previous run)
+**Status:** Trains DB-aligned models and saves them locally.
+- ✅ db_purchase_prediction_model.pkl
+- ✅ db_collaborative_filtering_model.pkl
 
 ---
 
@@ -59,7 +60,7 @@
 **What to do in the interactive menu:**
 1. Press `1` - Show available products
 2. Press `2` - Generate campaign for a product
-   - Enter product ID: `PROD00001`
+   - Enter product ID: `Product UUID`
    - Enter discount: `15`
    - Enter max customers: `50`
 3. Press `5` - View generated campaigns
@@ -147,7 +148,7 @@ CUST00789,Nuwan,45,Galle,0.72,White Bread,15
 
 ### Check if data exists:
 ```powershell
-Get-ChildItem "data\raw\*.csv"
+Get-ChildItem "data\raw_db\*.csv"
 ```
 
 ### Check if models exist:
@@ -190,7 +191,7 @@ Traditional Way:
 & .\venv\Scripts\python.exe interactive_demo.py
 ```
 - Choose option 2 (Generate campaign)
-- Enter product: PROD00001
+- Enter product: Product UUID
 - Enter discount: 15%
 - Enter max customers: 100
 
@@ -235,7 +236,7 @@ After (AI-Powered):
 ```powershell
 & .\venv\Scripts\python.exe interactive_demo.py
 # Choose: Option 2
-# Product: PROD00001 (or any Bakery product)
+# Product: Product UUID (any product)
 # Discount: 10%
 # Max customers: 50
 ```
@@ -244,7 +245,7 @@ After (AI-Powered):
 ```powershell
 & .\venv\Scripts\python.exe interactive_demo.py
 # Choose: Option 3
-# Product: PROD00001
+# Product: Product UUID
 # Shows: Products frequently bought together
 ```
 
@@ -252,8 +253,8 @@ After (AI-Powered):
 ```powershell
 & .\venv\Scripts\python.exe interactive_demo.py
 # Choose: Option 4
-# Base product: PROD00001 (Bread)
-# Cross-sell: PROD00015 (Butter)
+# Base product: Product UUID
+# Cross-sell: Product UUID
 # Discount: 15%
 # Result: "Buy bread, get 15% off butter" campaign
 ```
@@ -348,8 +349,8 @@ Get-Content campaign_outputs\campaign_*.csv | Select-Object -First 20
 
 ### Data files missing?
 ```powershell
-& .\venv\Scripts\python.exe data_generation\generate_all_datasets.py
-& .\venv\Scripts\python.exe data_analysis\preprocessing.py
+& .\venv\Scripts\python.exe data_generation\generate_db_aligned_dataset.py
+& .\venv\Scripts\python.exe data_analysis\db_preprocessing.py
 ```
 
 ### Models not working?

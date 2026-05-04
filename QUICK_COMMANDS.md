@@ -16,7 +16,7 @@ cd "F:\.1 Research\personalized-promotion-engine"
 ```
 **Then in the menu:**
 - Press `1` → See available products
-- Press `2` → Generate campaign (enter: PROD00001, discount: 15, customers: 50)
+- Press `2` → Generate campaign (enter a Product UUID, discount: 15, customers: 50)
 - Press `5` → View generated campaigns
 - Press `6` → Exit
 
@@ -46,12 +46,15 @@ Get-Content campaign_outputs\campaign_*.csv | Select-Object -First 20
 & .\venv\Scripts\Activate.ps1
 
 # 2. Generate data (3 min)
-& .\venv\Scripts\python.exe data_generation\generate_all_datasets.py
+& .\venv\Scripts\python.exe data_generation\generate_db_aligned_dataset.py
 
 # 3. Process features (2 min)
-& .\venv\Scripts\python.exe data_analysis\preprocessing.py
+& .\venv\Scripts\python.exe data_analysis\db_preprocessing.py
 
-# 4. Run demo (2 min)
+# 4. Train models (3-5 min)
+& .\venv\Scripts\python.exe train_db_aligned.py
+
+# 5. Run demo (2 min)
 & .\venv\Scripts\python.exe demo_campaign_generator.py
 ```
 
@@ -62,7 +65,7 @@ Get-Content campaign_outputs\campaign_*.csv | Select-Object -First 20
 ### Check what data exists:
 ```powershell
 # View data files
-Get-ChildItem "f:\.1 Research\Personalized Promotion Engine\data\raw\"
+Get-ChildItem "f:\.1 Research\Personalized Promotion Engine\data\raw_db\"
 
 # View processed features  
 Get-ChildItem "f:\.1 Research\Personalized Promotion Engine\data\processed\"
@@ -92,7 +95,7 @@ cd "F:\.1 Research\personalized-promotion-engine"
 Get-ChildItem campaign_outputs\
 
 # Step 4: Open a campaign file
-notepad campaign_outputs\campaign_PROD00015_15pct*.csv
+notepad campaign_outputs\campaign_*.csv
 ```
 
 **Explain while demo runs:**
@@ -117,7 +120,7 @@ notepad campaign_outputs\campaign_PROD00015_15pct*.csv
 ### Demo not working?
 1. Check venv is activated: Look for `(venv)` in terminal
 2. Use full Python path: `& .\venv\Scripts\python.exe`
-3. Verify data exists: `Get-ChildItem "f:\.1 Research\Personalized Promotion Engine\data\raw\"`
+3. Verify data exists: `Get-ChildItem "f:\.1 Research\Personalized Promotion Engine\data\raw_db\"`
 
 ### Error: "No module named pandas"?
 ```powershell

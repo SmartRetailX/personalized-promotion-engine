@@ -85,12 +85,13 @@ Personalized Promotion Engine/
 │
 │
 ├── 📂 data/                              ← All datasets
-│   ├── 📂 raw/                          ← Generated CSV files
-│   │   ├── Customers.csv                (1000 customers)
-│   │   ├── Products.csv                 (250 products)
-│   │   ├── Stores.csv                   (10 stores)
-│   │   ├── Promotions.csv               (200 promotions)
-│   │   └── Transactions.csv             (50,000 transactions)
+│   ├── 📂 raw_db/                       ← DB-aligned CSV files
+│   │   ├── users.csv
+│   │   ├── categories.csv
+│   │   ├── products.csv
+│   │   ├── promotions.csv
+│   │   ├── orders.csv
+│   │   └── transactions.csv
 │   │
 │   └── 📂 processed/                    ← ML-ready features
 │       ├── customer_features.csv
@@ -100,16 +101,10 @@ Personalized Promotion Engine/
 │       └── category_purchases.csv
 │
 ├── 📂 data_generation/                   ← Dataset creation scripts
-│   ├── config.py                        ← Configure dataset size/parameters
-│   ├── generate_customers.py            ← Generate customer demographics
-│   ├── generate_products.py             ← Generate product catalog
-│   ├── generate_stores.py               ← Generate store locations
-│   ├── generate_promotions.py           ← Generate historical promotions
-│   ├── generate_transactions.py         ← Generate purchase history (complex!)
-│   └── generate_all_datasets.py         ← Master script (runs all)
+│   └── generate_db_aligned_dataset.py   ← DB-aligned dataset generator
 │
 ├── 📂 data_analysis/                     ← Data processing & features
-│   └── preprocessing.py                 ← Feature engineering for ML
+│   └── db_preprocessing.py              ← DB-aligned feature engineering
 │                                         - RFM analysis
 │                                         - Interaction matrices
 │                                         - Category preferences
@@ -134,13 +129,13 @@ Personalized Promotion Engine/
 │   │                                     - Persuadables identification
 │   │                                     - Incremental ROI
 │   │
-│   ├── promotion_engine.py              ← [COMPLETE SYSTEM] Everything integrated
+│   ├── db_promotion_engine.py           ← [COMPLETE SYSTEM] DB-aligned engine
 │   │                                     - End-to-end campaigns
 │   │                                     - Strategy comparison
 │   │                                     - Personalized vs broadcast
 │   │
-│   ├── purchase_prediction_model.pkl    ← Trained model (after running)
-│   └── collaborative_filtering_model.pkl ← Trained model (after running)
+│   ├── db_purchase_prediction_model.pkl    ← Trained model (after running)
+│   └── db_collaborative_filtering_model.pkl ← Trained model (after running)
 │
 ├── 📂 evaluation/                        ← Model evaluation & metrics
 │   ├── model_evaluation.py              ← Comprehensive evaluation
@@ -171,31 +166,31 @@ START
      ↓
 2. Data Generation
   ├─ config.py (settings)
-  └─ generate_all_datasets.py
+  └─ generate_db_aligned_dataset.py
      │
-     ├─→ Customers.csv
-     ├─→ Products.csv
-     ├─→ Stores.csv
-     ├─→ Promotions.csv
-     └─→ Transactions.csv
+      ├─→ users.csv
+      ├─→ categories.csv
+      ├─→ products.csv
+      ├─→ promotions.csv
+      ├─→ orders.csv
+      └─→ transactions.csv
         ↓
 3. Data Processing
-  └─ preprocessing.py
+  └─ db_preprocessing.py
      │
      ├─→ customer_features.csv
      ├─→ product_features.csv
      └─→ interactions.csv
         ↓
 4. Model Training
-  ├─ purchase_prediction.py → model.pkl
-  └─ collaborative_filtering.py → model.pkl
+    └─ train_db_aligned.py → db_*_model.pkl
      ↓
 5. Advanced Features
   ├─ promotion_optimizer.py
   └─ causal_inference.py
      ↓
 6. Integration
-  └─ promotion_engine.py
+  └─ db_promotion_engine.py
      ↓
 7. Evaluation
   └─ model_evaluation.py
@@ -245,7 +240,7 @@ Same sales, 75% cost reduction!
 
 ```
 Processed Data
-    ↓ [Run: python models/purchase_prediction.py]
+    ↓ [Run: python train_db_aligned.py]
 
 Random Forest Model trained on:
 - Customer purchase frequency
@@ -254,7 +249,7 @@ Random Forest Model trained on:
 - Product popularity & price
 - Past purchase history
 
-    ↓ [Saved as: purchase_prediction_model.pkl]
+    ↓ [Saved as: db_purchase_prediction_model.pkl]
 
 Collaborative Filtering Model trained on:
 - Customer-product interaction matrix
@@ -266,7 +261,7 @@ Collaborative Filtering Model trained on:
 
 ```
 Processed Data
-    ↓ [Run: python models/purchase_prediction.py]
+    ↓ [Run: python train_db_aligned.py]
 
 Random Forest Model trained on:
 - Customer purchase frequency
@@ -275,21 +270,21 @@ Random Forest Model trained on:
 - Product popularity & price
 - Past purchase history
 
-    ↓ [Saved as: purchase_prediction_model.pkl]
+    ↓ [Saved as: db_purchase_prediction_model.pkl]
 
 Collaborative Filtering Model trained on:
 - Customer-product interaction matrix
 - Matrix factorization (SVD)
 - Similar customer patterns
 
-    ↓ [Saved as: collaborative_filtering_model.pkl]
+    ↓ [Saved as: db_collaborative_filtering_model.pkl]
 ```
 
 ### Phase 3: Model Usage
 
 ```
 User Input:
-- Product: Bread (PROD00001)
+- Product: Bread (Product UUID)
 - Discount: 10%
 - Target: 50 customers
 
@@ -323,8 +318,8 @@ Send Emails!
 | -------------------------------- | ------------------------------------- | ----------------------------- |
 | `demo_campaign_generator.py`     | Auto demo, generates sample campaigns | First time demo, testing      |
 | `interactive_demo.py`            | Menu-driven campaign creator          | Regular use, presentations    |
-| `data_analysis/preprocessing.py` | Process raw data into features        | When data changes             |
-| `models/purchase_prediction.py`  | Train/retrain the AI model            | Monthly, or when data updates |
+| `data_analysis/db_preprocessing.py` | Process raw data into features     | When data changes             |
+| `train_db_aligned.py`               | Train/retrain the AI models        | Monthly, or when data updates |
 | `evaluation/model_evaluation.py` | Check model performance               | After retraining              |
 
 ### Files You Get:

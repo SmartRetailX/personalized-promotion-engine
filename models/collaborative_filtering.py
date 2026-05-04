@@ -18,7 +18,7 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from data_analysis.preprocessing import DataPreprocessor
+from data_analysis.db_preprocessing import DBAlignedPreprocessor
 
 
 class CollaborativeFilteringModel:
@@ -452,7 +452,7 @@ class CollaborativeFilteringModel:
             'evaluated_customers': evaluated_customers
         }
     
-    def save_model(self, filepath='models/collaborative_filtering_model.pkl'):
+    def save_model(self, filepath='models/db_collaborative_filtering_model.pkl'):
         """Save trained model"""
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
         
@@ -474,7 +474,7 @@ class CollaborativeFilteringModel:
         print(f"\n* Model saved to: {filepath}")
     
     @classmethod
-    def load_model(cls, filepath='models/collaborative_filtering_model.pkl'):
+    def load_model(cls, filepath='models/db_collaborative_filtering_model.pkl'):
         """Load trained model"""
         model_data = joblib.load(filepath)
         
@@ -519,7 +519,7 @@ def main():
     
     # Load data
     print("\n1. Loading data...")
-    preprocessor = DataPreprocessor()
+    preprocessor = DBAlignedPreprocessor()
     preprocessor.load_data()
     
     # FIX #5: Time-based split for training
@@ -587,7 +587,7 @@ def main():
     
     # Save model
     print("\n7. Saving model...")
-    model.save_model('models/collaborative_filtering_model.pkl')
+    model.save_model('models/db_collaborative_filtering_model.pkl')
     
     print("\n" + "=" * 70)
     print(" COLLABORATIVE FILTERING TRAINING COMPLETED!")

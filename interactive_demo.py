@@ -39,7 +39,7 @@ def main():
             generator.show_available_products(category if category else None)
             
         elif choice == '2':
-            product_id = input("\nEnter Product ID (e.g., PROD00001): ").strip().upper()
+            product_id = input("\nEnter Product UUID: ").strip()
             discount = input("Enter discount percentage (default 10): ").strip()
             max_customers = input("Enter max customers to target (default 50): ").strip()
             
@@ -49,12 +49,12 @@ def main():
             generator.generate_promotion_campaign(product_id, discount, max_customers)
             
         elif choice == '3':
-            product_id = input("\nEnter Product ID to analyze (e.g., PROD00001): ").strip().upper()
+            product_id = input("\nEnter Product UUID to analyze: ").strip()
             generator.find_cross_sell_opportunities(product_id, top_n=5)
             
         elif choice == '4':
-            base_id = input("\nEnter base Product ID (e.g., PROD00001): ").strip().upper()
-            cross_id = input("Enter cross-sell Product ID (e.g., PROD00015): ").strip().upper()
+            base_id = input("\nEnter base Product UUID: ").strip()
+            cross_id = input("Enter cross-sell Product UUID: ").strip()
             discount = input("Enter discount percentage (default 10): ").strip()
             
             discount = int(discount) if discount else 10

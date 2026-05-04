@@ -22,7 +22,7 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from data_analysis.preprocessing import DataPreprocessor
+from data_analysis.db_preprocessing import DBAlignedPreprocessor
 
 
 class PurchasePredictionModel:
@@ -258,7 +258,7 @@ class PurchasePredictionModel:
         
         return top_customers
     
-    def save_model(self, filepath='models/purchase_prediction_model.pkl'):
+    def save_model(self, filepath='models/db_purchase_prediction_model.pkl'):
         """Save trained model"""
         # Ensure the directory exists
         dirpath = os.path.dirname(filepath)
@@ -278,7 +278,7 @@ class PurchasePredictionModel:
         print(f"\n* Model saved to: {filepath}")
     
     @classmethod
-    def load_model(cls, filepath='models/purchase_prediction_model.pkl'):
+    def load_model(cls, filepath='models/db_purchase_prediction_model.pkl'):
         """Load trained model"""
         model_data = joblib.load(filepath)
         
@@ -302,7 +302,7 @@ def main():
     
     # Load data
     print("\n1. Loading data...")
-    preprocessor = DataPreprocessor()
+    preprocessor = DBAlignedPreprocessor()
     preprocessor.load_data()
     
     # Create time-aware training data
@@ -358,7 +358,7 @@ def main():
     
     # Save
     print("\n8. Saving model...")
-    model.save_model('models/purchase_prediction_model.pkl')
+    model.save_model('models/db_purchase_prediction_model.pkl')
     
     print("\n" + "=" * 70)
     print(" MODEL TRAINING COMPLETED!")

@@ -13,11 +13,14 @@ def check_data_format():
     print(" DATA VALIDATION FOR REAL E-COMMERCE DATA")
     print("="*70)
     
-    data_dir = "data/raw"
+    data_dir = "data/raw_db"
     issues = []
     
     # Check 1: Files exist
-    required_files = ['Customers.csv', 'Products.csv', 'Transactions.csv']
+    required_files = [
+        'users.csv', 'categories.csv', 'products.csv',
+        'promotions.csv', 'orders.csv', 'transactions.csv'
+    ]
     print("\n1. Checking required files...")
     
     for file in required_files:
@@ -34,19 +37,19 @@ def check_data_format():
         return
     
     # Check 2: Customer data
-    print("\n2. Validating Customers.csv...")
-    customers = pd.read_csv(os.path.join(data_dir, 'Customers.csv'))
+    print("\n2. Validating users.csv...")
+    customers = pd.read_csv(os.path.join(data_dir, 'users.csv'))
     print(f"   Total customers: {len(customers)}")
     
-    required_cols = ['CustomerID']
-    optional_cols = ['Email', 'Name', 'Age', 'Gender', 'Location']
+    required_cols = ['id', 'email']
+    optional_cols = ['name', 'age', 'gender', 'City', 'customerSegment']
     
     for col in required_cols:
         if col in customers.columns:
             print(f"   * {col} found")
         else:
             print(f"   X {col} MISSING (Required!)")
-            issues.append(f"Customers.csv missing column: {col}")
+            issues.append(f"users.csv missing column: {col}")
     
     for col in optional_cols:
         if col in customers.columns:
@@ -55,19 +58,19 @@ def check_data_format():
             print(f"   - {col} not found (optional, but recommended)")
     
     # Check 3: Product data
-    print("\n3. Validating Products.csv...")
-    products = pd.read_csv(os.path.join(data_dir, 'Products.csv'))
+    print("\n3. Validating products.csv...")
+    products = pd.read_csv(os.path.join(data_dir, 'products.csv'))
     print(f"   Total products: {len(products)}")
     
-    required_cols = ['ProductID', 'Price']
-    optional_cols = ['ProductName', 'Category', 'Brand']
+    required_cols = ['id', 'price', 'category_id']
+    optional_cols = ['name', 'sku', 'brand']
     
     for col in required_cols:
         if col in products.columns:
             print(f"   * {col} found")
         else:
             print(f"   X {col} MISSING (Required!)")
-            issues.append(f"Products.csv missing column: {col}")
+            issues.append(f"products.csv missing column: {col}")
     
     for col in optional_cols:
         if col in products.columns:
@@ -76,31 +79,31 @@ def check_data_format():
             print(f"   - {col} not found (optional, but recommended)")
     
     # Check 4: Transaction data (MOST IMPORTANT!)
-    print("\n4. Validating Transactions.csv...")
-    transactions = pd.read_csv(os.path.join(data_dir, 'Transactions.csv'))
+    print("\n4. Validating transactions.csv...")
+    transactions = pd.read_csv(os.path.join(data_dir, 'transactions.csv'))
     print(f"   Total transactions: {len(transactions)}")
     
-    required_cols = ['CustomerID', 'ProductID', 'TransactionDate']
+    required_cols = ['customer_id', 'product_id', 'transaction_date']
     
     for col in required_cols:
         if col in transactions.columns:
             print(f"   * {col} found")
             
             # Check for valid data
-            if col in ['CustomerID', 'ProductID']:
+            if col in ['customer_id', 'product_id']:
                 unique_count = transactions[col].nunique()
                 print(f"     -> {unique_count} unique values")
         else:
             print(f"   X {col} MISSING (Required!)")
-            issues.append(f"Transactions.csv missing column: {col}")
+            issues.append(f"transactions.csv missing column: {col}")
     
     # Check 5: Data quality
     print("\n5. Data Quality Checks...")
     
     # Check for nulls
-    customer_nulls = customers['CustomerID'].isnull().sum()
-    product_nulls = products['ProductID'].isnull().sum()
-    trans_nulls = transactions[['CustomerID', 'ProductID']].isnull().sum().sum()
+    customer_nulls = customers['id'].isnull().sum()
+    product_nulls = products['id'].isnull().sum()
+    trans_nulls = transactions[['customer_id', 'product_id']].isnull().sum().sum()
     
     if customer_nulls == 0:
         print(f"   * No null CustomerIDs")
@@ -122,7 +125,7 @@ def check_data_format():
     
     # Check date format
     try:
-        pd.to_datetime(transactions['TransactionDate'])
+        pd.to_datetime(transactions['transaction_date'])
         print(f"   * TransactionDate format is valid")
     except:
         print(f"   ! TransactionDate format issue!")
@@ -179,7 +182,7 @@ if __name__ == "__main__":
         check_data_format()
     except Exception as e:
         print(f"\nX Error: {e}")
-        print("\nMake sure you have CSV files in data/raw/ folder:")
-        print("  - Customers.csv")
-        print("  - Products.csv")
-        print("  - Transactions.csv")
+        print("\nMake sure you have CSV files in data/raw_db/ folder:")
+        print("  - users.csv")
+        print("  - products.csv")
+        print("  - transactions.csv")

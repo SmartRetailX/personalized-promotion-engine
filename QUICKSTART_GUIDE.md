@@ -21,37 +21,28 @@ pip install -r requirements.txt
 
 ---
 
-### ✅ STEP 2: Generate Synthetic Data (2-3 minutes)
+### ✅ STEP 2: Generate DB-Aligned Synthetic Data (2-3 minutes)
 
 This creates realistic e-commerce data for training.
 
 ```powershell
-# Generate all datasets at once
-python data_generation/generate_all_datasets.py
+# Generate DB-aligned datasets
+python data_generation/generate_db_aligned_dataset.py
 ```
 
 **What this does:**
-- Creates 1,000 customers
-- Creates 250 products
-- Creates 10 stores
-- Creates 200 promotions
-- Creates 50,000 transactions
+- Creates users
+- Creates products and categories
+- Creates promotions
+- Creates orders and transactions
 
-**Expected Output:**
-```
-Generating Customers... ✓
-Generating Products...  ✓
-Generating Stores...    ✓
-Generating Promotions... ✓
-Generating Transactions... ✓
-```
-
-**Files Created in `data/raw/`:**
-- Customers.csv
-- Products.csv
-- Stores.csv
-- Promotions.csv
-- Transactions.csv
+**Files Created in `data/raw_db/`:**
+- users.csv
+- categories.csv
+- products.csv
+- promotions.csv
+- orders.csv
+- transactions.csv
 
 ---
 
@@ -60,7 +51,7 @@ Generating Transactions... ✓
 This prepares data for machine learning.
 
 ```powershell
-python data_analysis/preprocessing.py
+python data_analysis/db_preprocessing.py
 ```
 
 **What this does:**
@@ -89,23 +80,19 @@ Creating interaction matrix... ✓
 Train the AI models to predict purchases.
 
 ```powershell
-# Train purchase prediction model
-python models/purchase_prediction.py
-
-# Train collaborative filtering model
-python models/collaborative_filtering.py
+python train_db_aligned.py
 ```
 
 **Expected Output:**
 ```
 Training Random Forest...
 Accuracy: 75-85%
-Model saved: purchase_prediction_model.pkl
+Model saved: db_purchase_prediction_model.pkl
 ```
 
 **Files Created in `models/`:**
-- purchase_prediction_model.pkl
-- collaborative_filtering_model.pkl
+- db_purchase_prediction_model.pkl
+- db_collaborative_filtering_model.pkl
 
 ---
 
@@ -176,21 +163,20 @@ python interactive_demo.py
 ```
 Then:
 1. Choose option "1" - Show products
-2. Choose option "2" - Generate campaign for a product (e.g., PROD00001)
+2. Choose option "2" - Generate campaign for a product (use a Product UUID)
 3. Choose option "5" - View generated campaigns
 4. Open the CSV file and show the targeted customer list
 
 ### Full Research Validation:
 ```powershell
 # 1. Generate fresh data
-python data_generation/generate_all_datasets.py
+python data_generation/generate_db_aligned_dataset.py
 
 # 2. Process data
-python data_analysis/preprocessing.py
+python data_analysis/db_preprocessing.py
 
 # 3. Train models
-python models/purchase_prediction.py
-python models/collaborative_filtering.py
+python train_db_aligned.py
 
 # 4. Evaluate
 python evaluation/model_evaluation.py
@@ -226,23 +212,22 @@ python demo_campaign_generator.py
 pip install scikit-learn
 ```
 
-### Error: "No such file or directory: data/raw/Customers.csv"
+### Error: "No such file or directory: data/raw_db/users.csv"
 ```powershell
 # You need to generate data first
-python data_generation/generate_all_datasets.py
+python data_generation/generate_db_aligned_dataset.py
 ```
 
 ### Error: "Model file not found"
 ```powershell
 # Train models first
-python models/purchase_prediction.py
-python models/collaborative_filtering.py
+python train_db_aligned.py
 ```
 
 ### Want to start completely fresh?
 ```powershell
 # Delete old data
-Remove-Item data/raw/*.csv
+Remove-Item data/raw_db/*.csv
 Remove-Item data/processed/*.csv
 Remove-Item models/*.pkl
 Remove-Item campaign_outputs/*.csv
@@ -256,10 +241,13 @@ Remove-Item campaign_outputs/*.csv
 
 If you have real e-commerce data:
 
-1. Place CSV files in `data/raw/`:
-   - Customers.csv (must have: CustomerID)
-   - Products.csv (must have: ProductID, Price)
-   - Transactions.csv (must have: CustomerID, ProductID, TransactionDate)
+1. Place CSV files in `data/raw_db/`:
+   - users.csv (must have: id, email)
+   - categories.csv (must have: id, name)
+   - products.csv (must have: id, price, category_id)
+   - promotions.csv (must have: id, product_id, discount_percent)
+   - orders.csv (must have: id, customer_id, order_date)
+   - transactions.csv (must have: customer_id, product_id, transaction_date)
 
 2. Validate format:
 ```powershell
@@ -307,7 +295,7 @@ python validate_real_data.py
 
 2. **Check if data exists before training:**
    ```powershell
-   Get-ChildItem data/raw/*.csv
+   Get-ChildItem data/raw_db/*.csv
    ```
 
 3. **View generated campaigns:**
@@ -331,7 +319,7 @@ pip install -r requirements.txt
 
 Then:
 ```powershell
-python data_generation/generate_all_datasets.py
+python data_generation/generate_db_aligned_dataset.py
 ```
 
 Good luck with your research! 🚀

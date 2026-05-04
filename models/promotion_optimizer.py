@@ -33,10 +33,36 @@ class PromotionOptimizer:
         """Load necessary data"""
         self.customer_features = pd.read_csv(customer_features_path)
         transactions = pd.read_csv(transactions_path)
-        
+
+        # Normalize DB-aligned column names if needed
+        transactions = transactions.rename(columns={
+            "promotion_id": "PromotionID",
+            "transaction_date": "TransactionDate",
+            "customer_id": "CustomerID",
+            "total_amount": "TotalAmount",
+        })
+
         # Extract promotion history
-        self.promotion_history = transactions[transactions['PromotionID'] != 'None'].copy()
-        self.promotion_history['TransactionDate'] = pd.to_datetime(self.promotion_history['TransactionDate'])
+        if "PromotionID" not in transactions.columns:
+            transactions["PromotionID"] = "None"
+
+        self.promotion_history = transactions[transactions["PromotionID"] != "None"].copy()
+        if "TransactionDate" in self.promotion_history.columns:
+            self.promotion_history["TransactionDate"] = pd.to_datetime(
+                self.promotion_history["TransactionDate"], errors="coerce"
+            )
+
+        # Ensure expected customer feature columns exist
+        required_cols = {
+            "total_spent": 0,
+            "avg_transaction_value": 0,
+            "avg_discount_per_transaction": 0,
+            "promo_response_rate": 0,
+            "CustomerSegment": "regular_shoppers",
+        }
+        for col, default in required_cols.items():
+            if col not in self.customer_features.columns:
+                self.customer_features[col] = default
         
     def calculate_optimal_discount(self, customer_id, product_price, base_discount=15):
         """
@@ -54,9 +80,11 @@ class PromotionOptimizer:
         promo_response = customer['promo_response_rate']
         
         # Factor 2: Price sensitivity (based on average discount received)
-        if customer['avg_discount_per_transaction'] > 0:
-            typical_discount = (customer['avg_discount_per_transaction'] / 
-                               customer['avg_transaction_value']) * 100
+        if customer['avg_discount_per_transaction'] > 0 and customer['avg_transaction_value'] > 0:
+            typical_discount = (
+                customer['avg_discount_per_transaction'] /
+                customer['avg_transaction_value']
+            ) * 100
         else:
             typical_discount = base_discount
         
@@ -272,10 +300,15 @@ def main():
     
     # Load data
     print("\nLoading data...")
-    customer_features_path = 'f:\\.1 Research\\Personalized Promotion Engine\\data\\processed\\customer_features.csv'
-    transactions_path = 'f:\\.1 Research\\Personalized Promotion Engine\\data\\raw\\Transactions.csv'
+    customer_features_path = 'data/processed/customer_features.csv'
+    transactions_path = 'data/raw_db/transactions.csv'
     
-    optimizer.load_data(customer_features_path, transactions_path)
+    if os.path.exists(customer_features_path) and os.path.exists(transactions_path):
+        optimizer.load_data(customer_features_path, transactions_path)
+    else:
+        print("Missing customer features or transactions data.")
+        print("Run train_db_aligned.py to generate models and features.")
+        return
     
     # Example: Check optimal discount for a customer
     sample_customer = optimizer.customer_features.iloc[0]['CustomerID']

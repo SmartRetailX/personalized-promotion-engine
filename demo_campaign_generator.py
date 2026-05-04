@@ -12,15 +12,13 @@ from datetime import datetime
 
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from models.promotion_engine import PersonalizedPromotionEngine
-from models.collaborative_filtering import CollaborativeFilteringModel
+from models.db_promotion_engine import DBAlignedPromotionEngine
 
 class CampaignGenerator:
     """Generate actual promotion campaigns with customer lists"""
     
     def __init__(self):
-        self.engine = PersonalizedPromotionEngine()
-        self.cf_model = CollaborativeFilteringModel()
+        self.engine = DBAlignedPromotionEngine()
         self.output_dir = "campaign_outputs"
         os.makedirs(self.output_dir, exist_ok=True)
         
@@ -28,7 +26,6 @@ class CampaignGenerator:
         """Load trained models"""
         print("Loading trained models...")
         self.engine.load_models()
-        self.cf_model.load_model()
         print("* Models loaded successfully\n")
         
     def show_available_products(self, category=None):
@@ -69,11 +66,10 @@ class CampaignGenerator:
         print(f"Discounted Price: Rs. {product['Price'] * (1 - discount_percent/100):.2f}")
         print(f"\nFinding top {max_customers} customers likely to buy...\n")
         
-        # Get targeted customers using ML model
+        # Get targeted customers using DB-aligned engine
         campaign, summary = self.engine.create_promotion_campaign(
-            product_id, 
+            product_id,
             max_targets=max_customers,
-            strategy='hybrid',
             optimize=False
         )
         
@@ -82,9 +78,11 @@ class CampaignGenerator:
             return None
             
         # Add customer details
+        id_col = 'CustomerID' if 'CustomerID' in campaign.columns else 'customer_id'
         campaign = campaign.merge(
             self.engine.preprocessor.customers[['CustomerID', 'Name', 'Age', 'Gender', 'Location', 'CustomerSegment']],
-            on='CustomerID',
+            left_on=id_col,
+            right_on='CustomerID',
             how='left'
         )
         
@@ -93,7 +91,7 @@ class CampaignGenerator:
         filename = f"{self.output_dir}/campaign_{product_id}_{discount_percent}pct_{timestamp}.csv"
         
         # Select relevant columns for campaign (handle both optimized and non-optimized)
-        base_cols = ['CustomerID', 'Name', 'Age', 'Gender', 'Location', 'CustomerSegment', 'purchase_probability']
+        base_cols = [id_col, 'Name', 'Age', 'Gender', 'Location', 'CustomerSegment', 'purchase_probability']
         
         # Add optional columns if they exist
         if 'optimal_discount' in campaign.columns:
@@ -137,7 +135,7 @@ class CampaignGenerator:
         print(f"\n{'='*70}")
         print(f" TOP 10 CUSTOMERS TO TARGET")
         print(f"{'='*70}")
-        print(campaign_output.head(10)[['CustomerID', 'Name', 'Location', 'CustomerSegment', 'purchase_probability']])
+        print(campaign_output.head(10)[[id_col, 'Name', 'Location', 'CustomerSegment', 'purchase_probability']])
         
         return campaign_output
     
