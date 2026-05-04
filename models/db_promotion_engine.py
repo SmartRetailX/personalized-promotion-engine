@@ -32,7 +32,9 @@ import os
 import sys
 from datetime import datetime
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 from models.purchase_prediction import PurchasePredictionModel
 from models.collaborative_filtering import CollaborativeFilteringModel
@@ -50,6 +52,8 @@ class DBAlignedPromotionEngine:
     CF_MODEL_FILE = "db_collaborative_filtering_model.pkl"
 
     def __init__(self, models_dir="models"):
+        if not os.path.isabs(models_dir):
+            models_dir = os.path.join(project_root, models_dir)
         self.models_dir = models_dir
         self.purchase_model: PurchasePredictionModel | None = None
         self.cf_model: CollaborativeFilteringModel | None = None
@@ -82,8 +86,8 @@ class DBAlignedPromotionEngine:
 
         # Optimizer (optional - for discount optimisation)
         self.optimizer = PromotionOptimizer()
-        txn_path = os.path.join("data", "raw_db", "transactions.csv")
-        processed_dir = os.path.join("data", "processed")
+        txn_path = os.path.join(project_root, "data", "raw_db", "transactions.csv")
+        processed_dir = os.path.join(project_root, "data", "processed")
         os.makedirs(processed_dir, exist_ok=True)
         cust_path = os.path.join(processed_dir, "customer_features.csv")
         if os.path.exists(txn_path):
@@ -431,6 +435,10 @@ def main():
 
     engine = DBAlignedPromotionEngine()
     engine.load_models()
+
+    if engine.purchase_model is None or engine.cf_model is None:
+        print("\nModels are missing. Run train_db_aligned.py from the project root.")
+        return
 
     # Pick a sample product from the DB-aligned data
     sample_product = engine.preprocessor.products[
